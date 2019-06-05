@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".OrderDetails">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/order_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        app:cardElevation="4dp">
+
+        <LinearLayout
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:layout_width="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_weight="9"
+                        >
+
+                        <TextView
+                            android:id="@+id/order_id"
+                            android:gravity="center_vertical|start"
+                            android:layout_marginLeft="10dp"
+                            android:textAllCaps="true"
+                            android:textStyle="bold"
+                            android:text="ORDER ID"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:id="@+id/order_name"
+                            android:gravity="center_vertical|start"
+                            android:layout_marginLeft="10dp"
+                            android:textAllCaps="true"
+                            android:textStyle="italic"
+                            android:text="Name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:id="@+id/order_address"
+                            android:gravity="center_vertical|start"
+                            android:layout_marginLeft="10dp"
+                            android:textAllCaps="true"
+                            android:textStyle="italic"
+                            android:text="Adress"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:id="@+id/order_time_line"
+                            android:gravity="center_vertical|start"
+                            android:layout_marginLeft="10dp"
+                            android:textAllCaps="true"
+                            android:textStyle="italic"
+                            android:text="Prefered time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                        <TextView
+                            android:id="@+id/order_status"
+                            android:gravity="center_vertical|start"
+                            android:layout_marginLeft="10dp"
+                            android:textAllCaps="true"
+                            android:textStyle="italic"
+                            android:text="Status"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+
+                        <TextView
+                            android:id="@+id/order_total"
+                            android:gravity="center_vertical|start"
+                            android:layout_marginLeft="10dp"
+                            android:textAllCaps="true"
+                            android:textStyle="italic"
+                            android:text="€1000"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+                <info.hoang8f.widget.FButton
+                    android:id="@+id/btn_packed"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_margin="8dp"
+                    android:backgroundTint="#66BB6A"
+                    android:text="PACKED"
+                    android:textColor="@android:color/white"
+                    app:cornerRadius="4dp"
+                    app:shadowColor="@android:color/black"
+                    app:shadowEnabled="true"
+                    app:shadowHeight="5dp"
+                    />
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </android.support.v7.widget.CardView>
+    <LinearLayout
+        android:layout_below="@+id/order_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="30sp"
+            android:layout_marginLeft="8dp"
+            android:text="Details"
+            />
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/lstProd"
+            />
+    </LinearLayout>
+
+</RelativeLayout>
