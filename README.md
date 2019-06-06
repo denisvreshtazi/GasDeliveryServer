@@ -59,4 +59,4 @@ the images and icon are at:
      
 ## Authors
 
-* **Denis Vreshtazi**
+ **Denis Vreshtazi**
