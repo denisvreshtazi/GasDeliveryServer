@@ -6,8 +6,23 @@ Gas Delivery Vlora
 
 The Business part of Gas Delivery. 
 
+## Tools
 
-The Activities are located at: 
+* **Android Studio**
+* **Firebase**, **SQLite**
+* **Material Design**
+* **Drawer.io**
+
+## Project Structure
+
+* **Documents**
+      
+     * *Needefinding.pdf*
+     * *client test.pdf*
+     * *worker test.pdf*
+     * *HCI_Vreshtazi.pdf*
+
+### The Activities are located at: 
 
     /app/src/main/java/com/example/gasdeliveryserver/
 
