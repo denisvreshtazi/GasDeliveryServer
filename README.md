@@ -1,77 +1,134 @@
-![](logo.png)
+# 🔥 Gas Delivery — Server App
 
-Gas Delivery Vlora
-# GasDeliveryServer
-### HCI Project
+> **Worker / Business** Android application of the **Gas Delivery Vlora** system. Workers see incoming customer orders, view details, track the customer's location on Google Maps, and complete deliveries.
 
-The Business part of Gas Delivery. 
+[![Platform](https://img.shields.io/badge/platform-Android-3DDC84)]()
+[![Language](https://img.shields.io/badge/language-Java-orange)]()
+[![Firebase](https://img.shields.io/badge/backend-Firebase-yellow)]()
+[![SQLite](https://img.shields.io/badge/local-SQLite-blue)]()
+[![Course](https://img.shields.io/badge/course-HCI-purple)]()
 
-## Tools
+---
 
-* **Android Studio**
-* **Firebase**, **SQLite**
-* **Material Design**
-* **Drawer.io**
+## 📌 Overview
 
-## Project Structure
+This is the **worker-side companion** to the [GasDeliveryClient](https://github.com/denisvreshtazi/GasDeliveryClient) app. Together they form a small two-app delivery system designed during a Human-Computer Interaction course, using **Vlorë (Vlora), Albania** as the case study:
 
-* **Documents**
-      
-     * *Needefinding.pdf*
-     * *client test.pdf*
-     * *worker test.pdf*
-     * *HCI_Vreshtazi.pdf*
+- **Customers** order gas through `GasDeliveryClient`
+- **Workers** receive and fulfill orders through `GasDeliveryServer` (this repo)
 
-### The Activities are located at: 
+The app handles authentication, real-time order updates from Firebase, navigation to the customer's location, and direct phone calls.
 
-    /app/src/main/java/com/example/gasdeliveryserver/
+![logo](logo.png)
 
-*  *MainActivity.java* - The Log in Page of th worker, is checked if the user exists in the database and redirect to the Home page. The layout is loaded from *layout/activity_main.xml*. 
-*  *Home.java* - The list of orders. Load the orders from the database(Firebase). Asks for permission of the location and phone call. Load each order inside a *ViewHolder*. The view of the order is loaded from *layout/order_layout.xml* inside the container *ayout/content_home.xml*. The layout for the navigation is loaded from *layout/activity_home.xml*.
-* *OrderDetails.java* - The Details of the selected order. The layout is loaded from *layout/activity_order_details.xml*. The first part is is a CardView where are listed the Detils of the order and below are the single products of it listed in a RecyclerView.
-* *TrackingOrder.java* - A google Maps Activity. The layout is loaded from *layout/activity_tracking_order.xml*. Are created two markers **Te buyer** and **The worker**. This activity can redirect to *Call* or to *Google Maps*
+## 🛠️ Tech Stack
 
-* **Model**:
+- **Android Studio** (Java)
+- **Firebase Realtime Database** — order sync between client and worker apps
+- **SQLite** — local cache
+- **Google Maps Android SDK** — order tracking and navigation
+- **Material Design** components
+- **Drawer.io** — wireframes & UI mock-ups
 
-    - *Order* - public class where are instantiated the proprieties of the order
-    
-    - *User* -  public class where are instantiated the proprieties of the User
-      
-    - *Request*-  public class where are instantiated the proprieties of the Request
-      
- * **ViewHolder**:
+## 🧱 Architecture
 
-     - *MyViewHolder* - contains the products that are part of the Order. Name, price and a checkBox.
-    
-     - *OrderDetailsAdapter* - The layout of the order details. The layout is loaded from *layout/order_details_layout.xml*
-      
-     - *OrderViewHolder*  
- 
-  * **Common**:
+```
+┌────────────────────────────────────────────────┐
+│             GasDeliveryServer (Worker)         │
+│                                                │
+│  MainActivity (Login)                          │
+│       │                                        │
+│       ▼                                        │
+│  Home (Order list, RecyclerView)               │
+│       │                                        │
+│       ├─▶ OrderDetails (CardView + items)      │
+│       │                                        │
+│       └─▶ TrackingOrder (Google Maps)          │
+│                ├─▶ Phone Call                  │
+│                └─▶ Open in Google Maps         │
+└────────────────────────────────────────────────┘
+                    ▲
+                    │ Firebase Realtime DB
+                    ▼
+┌────────────────────────────────────────────────┐
+│             GasDeliveryClient (Customer)       │
+└────────────────────────────────────────────────┘
+```
 
-      *Common.java* - When a User logs in all the actions he takes are made as a commonUser.  
-    
- 
- 
-  
-The xml files are located at:
+## 🗂️ Project Structure
 
-    GasDeliveryServer/app/src/main/res/
-  
-  
-the layouts are found at : 
-          
-     app/src/main/res/layout
+### Activities
+Located at `/app/src/main/java/com/example/gasdeliveryserver/`
 
-the menu home drawer is found at : 
-        
-      app/src/main/res/layout/menu
+| Activity | Layout | Description |
+|---|---|---|
+| `MainActivity.java` | `layout/activity_main.xml` | Worker login. Validates against the database; on success navigates to `Home`. |
+| `Home.java` | `layout/activity_home.xml` + `content_home.xml` | Lists incoming orders (loaded from Firebase). Each order rendered via `OrderViewHolder` (`layout/order_layout.xml`). Requests location and phone-call permissions. |
+| `OrderDetails.java` | `layout/activity_order_details.xml` | Header `CardView` with order metadata + a `RecyclerView` of products via `OrderDetailsAdapter` (`layout/order_details_layout.xml`). |
+| `TrackingOrder.java` | `layout/activity_tracking_order.xml` | Google Maps activity with two markers (**buyer**, **worker**). Buttons open the dialer or Google Maps for turn-by-turn navigation. |
 
-the images and icon are at: 
+### Models (`com.example.gasdeliveryserver.model`)
+- **`Order`** — order properties
+- **`User`** — user properties
+- **`Request`** — request properties
 
-     res/drawable
-     
-     
-## Authors
+### ViewHolders / Adapters
+- **`MyViewHolder`** — single product card (name, price, checkbox)
+- **`OrderDetailsAdapter`** — bound to `layout/order_details_layout.xml`
+- **`OrderViewHolder`** — order summary card
 
- **Denis Vreshtazi**
+### Common
+- **`Common.java`** — holds the currently logged-in worker so all subsequent actions are attributed correctly.
+
+### Resources
+
+| Path | Contents |
+|---|---|
+| `app/src/main/res/layout/` | All activity & item XML layouts |
+| `app/src/main/res/layout/menu/` | Navigation drawer layouts |
+| `app/src/main/res/drawable/` | Icons & images |
+
+### Documents
+- `Needefinding.pdf` — needfinding study and personas
+- `client test.pdf` — client-side usability tests
+- `worker test.pdf` — worker-side usability tests
+- `HCI_Vreshtazi.pdf` — full coursework report
+- `HCI_Vreshtazi_Presentation.pdf` — final presentation slides
+
+## 🚀 Setup & Run
+
+### Prerequisites
+- **Android Studio** (Arctic Fox or newer recommended)
+- **Android SDK** with API level matching the project's `compileSdkVersion`
+- A **Firebase project** with the Realtime Database enabled
+- A **Google Maps API key** (for `TrackingOrder`)
+
+### Steps
+
+1. Clone the repo:
+   ```bash
+   git clone https://github.com/denisvreshtazi/GasDeliveryServer.git
+   ```
+2. Open the project in **Android Studio** and let Gradle sync.
+3. Add your **`google-services.json`** under `app/` (download from your Firebase console).
+4. In `AndroidManifest.xml` (or `local.properties`), set your **Google Maps API key**.
+5. Connect a device or start an emulator (with location services enabled).
+6. **Run** ▶️.
+
+## 🔐 Permissions Used
+
+- `INTERNET` — Firebase + Google Maps
+- `ACCESS_FINE_LOCATION` — show worker position on map
+- `CALL_PHONE` — direct dial of the customer
+
+## 🧪 User Testing
+
+The repository ships with the **needfinding** report and **usability test** notes from the course (`Needefinding.pdf`, `worker test.pdf`, `client test.pdf`) — useful background on the design rationale.
+
+## 🔗 Related Project
+
+➡️ **Customer-side app:** [GasDeliveryClient](https://github.com/denisvreshtazi/GasDeliveryClient)
+
+## 👤 Author
+
+**Denis Vreshtazi** — [GitHub](https://github.com/denisvreshtazi)
